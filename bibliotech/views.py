@@ -8,22 +8,15 @@ from django.contrib.auth.models import User
 
 def home(request):
     livros = Book.objects.all().order_by('-id')
-    return render (request, 'bibliotech/pages/home.html', context={
+    return render(request, 'bibliotech/pages/home.html', context={
         'livros': livros,
     })
 
 def emprestimo(request):
-    usuario = User.objects.filter(is_staff=True)
-    emprestimo = Emprestimo.objects.filter()
-    livros = Book.objects.all().order_by('-id')
+    emprestimo = Emprestimo.objects.all()
     return render (request, 'bibliotech/pages/emprestimo.html', context={
-        'livros': livros,
+        'livros': emprestimo,
     })
-
-"""
-if usuario is True:
-    return render(request, bibliotech/pages/emprestimo.html)
-"""
 
 def category(request, category_id):
     livros = get_list_or_404(
@@ -38,11 +31,11 @@ def category(request, category_id):
     })
 
 def book(request, id):
-    livro = get_object_or_404(Book, id)
+    livro = get_object_or_404(Book, pk=id)
 
-    return render(request, 'bibliotech/pages/livro.html', context={
+    return render(request, 'bibliotech/pages/livro-view.html', context={
         'livro': livro,
-        'is_detail_page': True
+        'is_detail_page': True,
     })
 
 def search(request):
@@ -56,6 +49,6 @@ def search(request):
     ).order_by('-id')
 
     return render(request, 'bibliotech/pages/search.html', context={
-        'page_title': f'Search for {search_term} |',
-        'books': livros,
+        'page_title': f'Search for "{search_term}" |',
+        'livros': livros,
     })
