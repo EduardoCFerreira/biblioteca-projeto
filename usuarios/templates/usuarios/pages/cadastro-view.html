@@ -1,5 +1,7 @@
 {% extends "global/base-cadastro.html" %}
 
+{% block title %}Cadastro |{% endblock title %}
+
 {% block conteudo %}
 <div class="col-md-5 right-box">
     <div class="row align-items-center">
@@ -11,8 +13,10 @@
                 {% csrf_token %}
                 <div class="form-conteudo form-conteudo-grid">
                     {% for field in form %}
-                    <div class="form-group p-3">
+                    <div class="form-group p-3 field-input">
+                        <div class="filed-inpuit">
                         {{ field }}
+                    </div>
                     </div>
                     {% endfor %}
                 </div>

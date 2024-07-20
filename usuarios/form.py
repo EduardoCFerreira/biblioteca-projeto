@@ -29,6 +29,7 @@ class RegisterForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         add_placeholder(self.fields['first_name'], 'Digite seu nome')
         add_placeholder(self.fields['last_name'], 'Digite seu sobrenome')
+        add_placeholder(self.fields['username'], 'Digite seu username')
         add_placeholder(self.fields['email'], 'Digite seu email')
 
     password = forms.CharField(
@@ -55,6 +56,7 @@ class RegisterForm(forms.ModelForm):
         fields = [
             'first_name',
             'last_name',
+            'username',
             'email',
             'password',
         ]

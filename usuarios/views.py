@@ -25,6 +25,7 @@ def cadastro_create(request):
         form.save()
         messages.success(request, 'Seu usuario foi criado')
 
+        #del = deleta alguma chave de dicionario
         del(request.session['register_form_data'])
         
     return redirect('usuarios:cadastro')
