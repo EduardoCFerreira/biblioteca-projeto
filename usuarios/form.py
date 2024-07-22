@@ -32,6 +32,12 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['username'], 'Digite seu username')
         add_placeholder(self.fields['email'], 'Digite seu email')
 
+    email = forms.EmailField(
+        error_messages={'required': 'Email e obrigatório'},
+        label = 'E-mail',
+        help_text='O email precisa ser valido',
+    )
+
     password = forms.CharField(
         required=True,
         widget=forms.PasswordInput( attrs={
@@ -60,6 +66,18 @@ class RegisterForm(forms.ModelForm):
             'email',
             'password',
         ]
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        exists = User.objects.filter(email=email).exists()
+
+        if exists:
+            raise ValidationError(
+                'User e-mail is already in use', code='invalid',
+            )
+
+        return email
 
 
     """Essa função é utlizada para ver se uma senha é igual a outra, caso as senhas forem diferentes como mostra a linha 70, ele levanta um erro no formulario"""

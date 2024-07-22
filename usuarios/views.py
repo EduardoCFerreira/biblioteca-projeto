@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.shortcuts import render
 from django.http import Http404
 from django.shortcuts import redirect, render
@@ -10,6 +11,7 @@ def cadastro_view(request):
     form = RegisterForm(register_form_data)
     return render(request, 'usuarios/pages/cadastro-view.html', {
         'form': form,
+        'form_action': reverse('usuarios:create'),
     })
 
 
@@ -22,7 +24,9 @@ def cadastro_create(request):
     form = RegisterForm(POST)
 
     if form.is_valid():
-        form.save()
+        user = form.save(commit=False)
+        user.set_password(user.password)
+        user.save()
         messages.success(request, 'Seu usuario foi criado')
 
         #del = deleta alguma chave de dicionario

@@ -3,36 +3,5 @@
 {% block title %}Cadastro |{% endblock title %}
 
 {% block conteudo %}
-<div class="col-md-5 right-box">
-    <div class="row align-items-center">
-        <div class="formulario">
-            <div class="header-text mb-4">
-                <p class="txt-topo d-flex justify-content-center mt-3 mb-2">Cadastro</p>
-            </div>
-            <form action="{% url 'usuarios:create' %}" method="POST">
-                {% csrf_token %}
-                <div class="form-conteudo form-conteudo-grid">
-                    {% for field in form %}
-                    <div class="form-group p-3 field-input">
-                        <div class="filed-inpuit">
-                        {{ field }}
-                    </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% if form.errors %}
-                <div class=" message message-error">
-                    Por Favor Corrija os erros no fomulario
-                </div>
-                {% endif %}
-                <div class="pt-3 pb-3">
-                    <button class="btn-logar" type="submit">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
+    {% include "global/form.html" %}
 {% endblock conteudo %}
