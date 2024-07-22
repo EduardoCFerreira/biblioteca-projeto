@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from usuarios.form import RegisterForm
@@ -33,3 +33,10 @@ def cadastro_create(request):
         del(request.session['register_form_data'])
         
     return redirect('usuarios:cadastro')
+
+
+def login_view(request):
+    return render(request, 'usuarios/pages/login-view.html')
+
+def login_create(request):
+    ...
