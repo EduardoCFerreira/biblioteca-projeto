@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from usuarios.form import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
 def cadastro_view(request):
@@ -36,7 +36,11 @@ def cadastro_create(request):
 
 
 def login_view(request):
-    return render(request, 'usuarios/pages/login-view.html')
+    form = LoginForm()
+    return render(request, 'usuarios/pages/login-view.html', {
+        'form': form,
+        'form_action': reverse('usuarios:login')
+    })
 
 def login_create(request):
     ...
