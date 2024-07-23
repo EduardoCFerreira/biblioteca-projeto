@@ -4,6 +4,8 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def cadastro_view(request):
@@ -31,6 +33,7 @@ def cadastro_create(request):
 
         #del = deleta alguma chave de dicionario
         del(request.session['register_form_data'])
+        return redirect(reverse('usuarios:login'))
         
     return redirect('usuarios:cadastro')
 
@@ -43,4 +46,38 @@ def login_view(request):
     })
 
 def login_create(request):
-    ...
+    if not request.POST:
+        raise Http404()
+    
+    form = LoginForm(request.POST)
+    login_url = reverse('usuarios:login')
+
+    if form.is_valid():
+        authenticated_user = authenticate(
+            email=form.cleaned_data.get('email', ''),
+            password=form.cleaned_data.get('password', '')          
+        )
+        if authenticated_user is not None:
+            messages.success(request, 'Voce esta logado')
+            login(request, authenticated_user)
+        else:
+            messages.error(request, 'Algo esta errado')
+    else:
+        messages.error(request, 'Email ou Senha errados')
+
+    return redirect(login_url)
+
+@login_required(login_url='usuarios:login', redirect_field_name='next')
+def logout_view(request):
+    if not request.POST:
+        return redirect(reverse('usuarios:login'))
+    
+    if request.POST.get('email') != request.user.email:
+        return redirect(reverse('usuarios:login'))
+
+    logout(request)
+    return redirect(reverse('usuarios:login'))
+
+@login_required(login_url='usuarios:login', redirect_field_name='next')
+def emprestimos(request):
+    return render(request, 'usuarios/pages/emprestimos.html')

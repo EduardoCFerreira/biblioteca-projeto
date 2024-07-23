@@ -13,9 +13,6 @@ class LoginForm(forms.Form):
         super().__init__(*args, **kwargs)
         add_placeholder(self.fields['email'], 'Digite seu email')
         add_placeholder(self.fields['password'], 'Digite sua senha')
-    email = forms.CharField(
-        widget=forms.EmailInput()
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput()
-    )
+    
+    email = forms.CharField(widget=forms.EmailInput())
+    password = forms.CharField(widget=forms.PasswordInput())

@@ -4,4 +4,10 @@
 
 {% block conteudo %}
     {% include "global/form-login.html" %}
+    {% if request.user.is_authenticated %}
+        <p>Voce esta logado {{request.user.email}}. Por favor,
+         <form action="{% url "usuarios:logout" %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Clique aqui para sair</button></form></p>
+    {% endif %}
 {% endblock conteudo %}
