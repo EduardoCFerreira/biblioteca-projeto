@@ -5,6 +5,10 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 
+""" Essas duas funções(def add_attr e def add_placeholder) tem o objetivo de configurar os campos do formulario.
+        Talvez seja um pouco melhor utilizar
+"""
+
 def add_attr(field, attr_name, attr_new_val):
     existing = field.widget.attrs.get(attr_name, '')
     field.widget.attrs[attr_name] = f'{existing} {attr_new_val}'.strip()
@@ -81,7 +85,7 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
 
-
+    # A função clean_'alg campo' é utlizada para validar campos individualmente
     def clean_email(self):
         email = self.cleaned_data.get('email', '')
         exists = User.objects.filter(email=email).exists()
