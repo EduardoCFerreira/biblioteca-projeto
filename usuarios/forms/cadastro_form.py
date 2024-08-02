@@ -24,9 +24,16 @@ def senha_forte(senha):
         code='invalid'
         )
     
+
+
 class RegisterForm(forms.ModelForm):
+
+    '''Essa aqui é uma outra maneira de adicionarmos placeholder'''
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        #A funcao add_placeholder é utilizada para adicionar placeholder, mas pode ser 
+        # que vamos utilizar apenas as funções q o django já disponibiliza para gente
         add_placeholder(self.fields['first_name'], 'Digite seu nome')
         add_placeholder(self.fields['last_name'], 'Digite seu sobrenome')
         add_placeholder(self.fields['username'], 'Digite seu username')
@@ -43,6 +50,13 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput( attrs={
             'placeholder': 'Digite sua senha',
         }),
+        error_messages={
+            'required': 'Senha não pode ficar em branco'
+        },
+        help_text=(
+            'Senha precisa conter um caracter maisculo, um minusculo, numeros. Pelo menos'
+            'oito digitos'
+        ),
         validators= [senha_forte]
     )
 
@@ -50,7 +64,7 @@ class RegisterForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput( attrs={
             'placeholder': 'Repita sua senha',
-        })
+        }),
     )
 
     """ Essa class Meta é utilizada pra colocar os campos que vamos querer no nosso formulario.

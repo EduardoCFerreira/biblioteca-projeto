@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
+
+from bibliotech.models import Emprestimo
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -80,4 +82,9 @@ def logout_view(request):
 
 @login_required(login_url='usuarios:login', redirect_field_name='next')
 def emprestimos(request):
-    return render(request, 'usuarios/pages/emprestimos.html')
+    emprestimos = Emprestimo.objects.filter(
+        user=request.user
+    )
+    return render(request, 'usuarios/pages/emprestimos.html',{
+        'livros': emprestimos
+    })

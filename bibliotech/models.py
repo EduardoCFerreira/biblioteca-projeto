@@ -20,6 +20,7 @@ class Book(models.Model):
     description = models.CharField(max_length=600)
     slug = models.SlugField(unique=True)
     cover = models.ImageField(upload_to='bibliotech/covers/%Y/%m/%d/')
+    quantidade = models.PositiveIntegerField(default=1)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True
     )
