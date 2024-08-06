@@ -18,14 +18,14 @@ def add_placeholder(field, placeholder_val):
 
 
 #Essa funcao eh para que o usuario utilize todos os caracteres, sendo um maisculo, minusculo e numeros
-def senha_forte(senha):
+def senha_forte(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
 
-    if not regex.match(senha):
+    if not regex.match(password):
         raise ValidationError((
             'Sua senha deve ter pelo menos 8 caracteres'
         ),
-        code='invalid'
+        code='Invalid'
         )
     
 
@@ -92,7 +92,7 @@ class RegisterForm(forms.ModelForm):
 
         if exists:
             raise ValidationError(
-                'User e-mail is already in use', code='invalid',
+                'User e-mail is already in use', code='Invalid',
             )
 
         return email
@@ -108,5 +108,5 @@ class RegisterForm(forms.ModelForm):
         if password != password2:
             raise ValidationError({
                 'password': 'Password and Password2 must be equal',
-                'password2': 'Password and Password2 must be equal'
+                'password2': 'Password and Password2 must be equal',
             })
