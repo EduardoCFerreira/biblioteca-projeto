@@ -163,3 +163,43 @@ span {
 .btn-actions {
     padding: 2rem;
 }
+
+.form-content{
+    max-width: 64rem;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+
+.form-content label,
+.form-contet .help-text,
+.form-contet .errorlist
+ {
+    display:block;
+    margin: .5rem;
+    font-size: 1.4rem;
+    list-style: none;
+}
+
+.errorlist{
+    color: red;
+}
+
+.form-content input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: .4rem;
+    border: 1px solid rgb(37, 37, 37);
+}
+
+.form-content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.form-content button {
+    padding: 1rem 2rem;
+    border: none;
+    background: rgb(6, 13, 38);
+    color: white;
+}
