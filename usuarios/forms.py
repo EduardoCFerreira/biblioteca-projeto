@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -8,6 +9,17 @@ def add_attr(field, attr_name, attr_new_val):
 
 def add_placeholder(field, placeholder_val):
     add_attr(field, 'placeholder', placeholder_val)
+
+def senha_forte(password):
+    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
+    if not regex.match(password):
+        raise ValidationError((
+            'Sua precisa precisa ter uma letra em maíscula, uma letra miníscula e um numero.'
+            'É preciso conter 8 caracteres'
+        ),
+            code='invalid'
+        )
+    
 
 class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -29,7 +41,8 @@ class RegisterForm(forms.ModelForm):
         help_text=(
             'Sua precisa precisa ter uma letra em maíscula, uma letra miníscula e um numero.'
             'É preciso conter 8 caracteres'
-        )
+        ),
+        validators=[senha_forte]
     )
 
     password2 = forms.CharField(
