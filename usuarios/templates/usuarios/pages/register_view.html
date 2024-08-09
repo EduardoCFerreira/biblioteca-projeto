@@ -4,9 +4,9 @@
 
 {% block conteudo %}
     <div class="main-content center container">
-        <h1>Cadastrar {{request.session.number}}</h1>
+        <h1>Cadastrar</h1>
     </div>
-
+    
     <div class="main-content container">
         <form action="{% url "usuarios:create" %}" method="POST">
             {% csrf_token %}

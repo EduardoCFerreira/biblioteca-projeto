@@ -88,29 +88,42 @@ class RegisterForm(forms.ModelForm):
             })
     }
 
-    def clean_password(self):
-        data = self.cleaned_data.get('password')
+    def clean_email(self):
+        email = self.cleaned_data.get('email' , '')
+        exists = User.objects.filter(email=email).exists()
 
-        if 'atenção' in data:
+        if exists:
             raise ValidationError(
-                'Não digite %(pipoca)s no campo de senha',
+                'Este email já existe, entre com outro',
                 code='invalid',
-                params= {'pipoca': '"atenção"'}
             )
-        
-        return data
 
-    def clean_first_name(self):
-        data = self.cleaned_data.get('first_name')
+        return email
 
-        if 'Eduardo' in data:
-            raise ValidationError(
-                'Não digite %(value)s no campo de nome',
-                code = 'invalid',
-                params= {'value': '"Eduardo"'}
-            )
+
+    # def clean_password(self):
+    #     data = self.cleaned_data.get('password')
+
+    #     if 'atenção' in data:
+    #         raise ValidationError(
+    #             'Não digite %(pipoca)s no campo de senha',
+    #             code='invalid',
+    #             params= {'pipoca': '"atenção"'}
+    #         )
         
-        return data
+    #     return data
+
+    # def clean_first_name(self):
+    #     data = self.cleaned_data.get('first_name')
+
+    #     if 'Eduardo' in data:
+    #         raise ValidationError(
+    #             'Não digite %(value)s no campo de nome',
+    #             code = 'invalid',
+    #             params= {'value': '"Eduardo"'}
+    #         )
+        
+    #     return data
     
 
     def clean(self):
