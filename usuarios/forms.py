@@ -100,4 +100,21 @@ class RegisterForm(forms.ModelForm):
         return data
     
 
-    
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password2= cleaned_data.get('password2')
+
+        if password != password2:
+            password_error = 'Senha e senha2 devem ser iguais'
+
+            raise ValidationError({
+                'password': ValidationError(
+                    password_error,
+                    code='invalid'
+                    ),
+                'password2': [
+                    password_error,
+                    # ValidationError('Outro erro') ---> Para criar outro campo de erros
+                ],
+            })
