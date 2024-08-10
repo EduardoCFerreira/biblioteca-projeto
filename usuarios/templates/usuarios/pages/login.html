@@ -5,6 +5,11 @@
 {% block conteudo %}
 <div class="main-content center container">
     <h1>Login</h1>
+    {% if request.user.is_authenticated %}
+        <p>
+            Você está logando com {{ request.user.username }}
+        </p>
+    {% endif %}
 </div>
 
     {% include "global/partials/form.html" %}
