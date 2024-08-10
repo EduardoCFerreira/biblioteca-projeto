@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.http import Http404
 from django.shortcuts import redirect, render
 from .forms import RegisterForm
@@ -7,7 +8,8 @@ def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
     form = RegisterForm(register_form_data)
     return render(request, 'usuarios/pages/register_view.html',{
-        'form': form, 
+        'form': form,
+        'form_action': reverse("usuarios:create"),
         })
 
 def register_create(request):
