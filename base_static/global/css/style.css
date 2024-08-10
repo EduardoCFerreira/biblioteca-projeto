@@ -203,3 +203,16 @@ span {
     background: rgb(6, 13, 38);
     color: white;
 }
+
+.inline-form {
+    display: inline;
+    font-size: 1.6rem;
+}
+
+.plaintext-button{
+    display: inline;
+    border:none;
+    background: none;
+    cursor: pointer;
+    color:aqua;
+}
