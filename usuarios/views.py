@@ -29,3 +29,9 @@ def register_create(request):
         del(request.session['register_form_data'])
         
     return redirect('usuarios:register')
+
+def login_view(request):
+    return render(request, 'usuarios/pages/login.html')
+
+def login_create(request):
+    ...
