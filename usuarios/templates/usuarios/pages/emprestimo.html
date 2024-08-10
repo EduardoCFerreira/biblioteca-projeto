@@ -1,11 +1,15 @@
 {% extends "global/base.html" %}
 
-{% block title %}Login | {% endblock title %}
+{% block title %} Emprestimos |{% endblock title %}
 
 {% block conteudo %}
-<div class="main-content center container">
-    <h1>Login</h1>
-    {% if user.is_authenticated %}
+
+<div class="container mb-5">
+    <h1 class="title-container">Emprestimos de {{user}}</h1>
+</div>
+<div class="main-content main-content-list container">
+    <div class="main-content center container">
+        {% if user.is_authenticated %}
         <div>
             Você está logando com {{ request.user.username }}.
             <form class="inline-form" action="{% url "usuarios:logout" %}" method="POST">
@@ -15,8 +19,7 @@
             </form> para fazer logout
         </div>
     {% endif %}
-</div>
-
-    {% include "global/partials/form.html" %}
-
+    </div>
+ 
+    </div>
 {% endblock conteudo %}

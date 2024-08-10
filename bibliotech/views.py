@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 
-from bibliotech.models import Book, Emprestimo
+from bibliotech.models import Book
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -10,12 +10,6 @@ def home(request):
     livros = Book.objects.all().order_by('-id')
     return render(request, 'bibliotech/pages/home.html', context={
         'livros': livros,
-    })
-
-def emprestimo(request):
-    emprestimo = Emprestimo.objects.all()
-    return render (request, 'bibliotech/pages/emprestimo.html', context={
-        'livros': emprestimo,
     })
 
 def category(request, category_id):
