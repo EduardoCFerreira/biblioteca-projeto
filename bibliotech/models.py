@@ -21,6 +21,7 @@ class Book(models.Model):
     slug = models.SlugField(unique=True)
     cover = models.ImageField(upload_to='bibliotech/covers/%Y/%m/%d/')
     quantidade = models.PositiveIntegerField(default=1)
+    emprestado = models.BooleanField(default=False)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True
     )
