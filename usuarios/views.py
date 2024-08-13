@@ -5,6 +5,7 @@ from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from bibliotech.models import Emprestimo
 
 
 def register_view(request):
@@ -77,4 +78,10 @@ def logout_view(request):
 
 @login_required(login_url='usuarios:login', redirect_field_name='next')
 def emprestimo(request):
-    return render(request, 'usuarios/pages/emprestimo.html')
+    emprestimos = Emprestimo.objects.filter(
+        emprestado=True,
+        user=request.user,
+    )
+    return render(request, 'usuarios/pages/emprestimo.html', context={
+       'livros': emprestimos,
+    })

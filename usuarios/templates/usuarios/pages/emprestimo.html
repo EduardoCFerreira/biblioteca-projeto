@@ -19,6 +19,16 @@
             </form> para fazer logout
         </div>
     {% endif %}
+
+        <div class="usuarios-emprestimo-container">
+            <ul>
+                {% for livro in livros %}
+                    <li>
+                        <a href="#">{{livro.book}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
  
     </div>

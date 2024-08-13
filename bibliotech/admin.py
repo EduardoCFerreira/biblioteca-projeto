@@ -25,11 +25,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'emprestado', 'author',]
+    list_display = ['id', 'title', 'author',]
     list_display_links = 'title', 'author',
     search_fields = 'id', 'title', 'description', 'slug',
-    list_filter = 'category', 'author', 'emprestado',
+    list_filter = 'category', 'author',
     list_per_page = 10
+    prepopulated_fields = {
+        "slug": ('title',)
+    }
 
 @admin.register(Emprestimo)
 class EmprestimoAdmin(admin.ModelAdmin):
