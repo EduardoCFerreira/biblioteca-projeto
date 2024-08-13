@@ -18,18 +18,19 @@
                 <button class="plaintext-button" type='submit'>Clique aqui</button>
             </form> para fazer logout
         </div>
-    {% endif %}
-
+        {% endif %}
         <div class="usuarios-emprestimo-container">
             <ul>
                 {% for livro in livros %}
-                    <li>
-                        <a href="#">{{livro.book}}</a>
-                    </li>
+                <li>
+                    <a href="#">{{livro.book}}</a>
+                    <a href="#">{{livro.data_retirada}}</a>
+                    <a href="#">{{livro.data_devolucao}}</a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
- 
-    </div>
+
+</div>
 {% endblock conteudo %}
