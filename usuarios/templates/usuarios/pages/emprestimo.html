@@ -27,6 +27,10 @@
                     <a href="#">{{livro.data_retirada}}</a>
                     <a href="#">{{livro.data_devolucao}}</a>
                 </li>
+                {%empty%}
+                <li>
+                    <h1>Você ainda não tem nenhum emprestimo</h1>
+                </li>
                 {% endfor %}
             </ul>
         </div>

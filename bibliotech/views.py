@@ -2,6 +2,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render, get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.contrib import messages
 from bibliotech.models import Book
 from usuarios.forms.livro_form import LivroCriar
 from django.contrib.auth.models import User
@@ -50,14 +51,23 @@ def search(request):
     })
 @login_required(login_url='usuarios:login', redirect_field_name='next')
 def livro_criar(request):
-    livro = Book.objects.all().first()
+    livro = Book.objects.filter(
+        emprestado = False,
+    ).first()
 
     if not livro:
         raise Http404()
     form = LivroCriar(
-        request.POST or None,
+        data=request.POST or None,
+        files=request.FILES or None,
         instance=livro
     )
+
+    if form.is_valid():
+        data = form.save(commit=False)
+        livro.emprestimo = False
+        data.save()
+        messages.success(request, 'Seu livro foi adicionado')
 
     return render(request, 'bibliotech/pages/livro-criar.html',{
         'form': form

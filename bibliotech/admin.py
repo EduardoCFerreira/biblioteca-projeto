@@ -25,7 +25,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'author',]
+    list_display = ['id', 'title', 'author', 'emprestado']
     list_display_links = 'title', 'author',
     search_fields = 'id', 'title', 'description', 'slug',
     list_filter = 'category', 'author',
@@ -36,4 +36,4 @@ class BookAdmin(admin.ModelAdmin):
 
 @admin.register(Emprestimo)
 class EmprestimoAdmin(admin.ModelAdmin):
-    ...
+    list_display = ['observacao', 'emprestado']
