@@ -48,9 +48,17 @@ def search(request):
         'page_title': f'Search for "{search_term}" |',
         'livros': livros,
     })
+@login_required(login_url='usuarios:login', redirect_field_name='next')
 def livro_criar(request):
-    livro_form_data = request.session.get('livro_form_data', None)
-    form = LivroCriar(livro_form_data)
+    livro = Book.objects.all().first()
+
+    if not livro:
+        raise Http404()
+    form = LivroCriar(
+        request.POST or None,
+        instance=livro
+    )
+
     return render(request, 'bibliotech/pages/livro-criar.html',{
-        'form':form
+        'form': form
     })
