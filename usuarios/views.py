@@ -25,7 +25,7 @@ def register_create(request):
     form = RegisterForm(POST)
 
     if form.is_valid():
-        data = form.save(commit=False)
+        data = form.save(comit=False)
         data.set_password(data.password)
         data.save()
         messages.success(request, 'Seu usuario foi criado, por favor faça login')

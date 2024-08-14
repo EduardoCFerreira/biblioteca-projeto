@@ -1,7 +1,9 @@
 from django.http import Http404, HttpResponse
-from django.shortcuts import render, get_list_or_404, get_object_or_404
-
+from django.shortcuts import redirect, render, get_list_or_404, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from bibliotech.models import Book
+from usuarios.forms.livro_form import LivroCriar
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -45,4 +47,10 @@ def search(request):
     return render(request, 'bibliotech/pages/search.html', context={
         'page_title': f'Search for "{search_term}" |',
         'livros': livros,
+    })
+def livro_criar(request):
+    livro_form_data = request.session.get('livro_form_data', None)
+    form = LivroCriar(livro_form_data)
+    return render(request, 'bibliotech/pages/livro-criar.html',{
+        'form':form
     })
