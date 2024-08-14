@@ -67,7 +67,26 @@ def livro_criar(request):
         data = form.save(commit=False)
         livro.emprestimo = False
         data.save()
-        messages.success(request, 'Seu livro foi adicionado')
+        messages.success(request, 'Seu livro foi atualizado')
+
+    return render(request, 'bibliotech/pages/livro-criar.html',{
+        'form': form
+    })
+
+@login_required(login_url='usuarios:login', redirect_field_name='next')
+def livro_adicionar(request):
+    form = LivroCriar(
+        data = request.POST or None,
+        files = request.FILES or None,
+    )
+
+    if form.is_valid():
+        livro: Book = form.save(commit=False)
+
+        livro.emprestado=False
+
+        livro.save()
+        messages.success(request, 'Seu livro foi adicionado com sucesso!')
 
     return render(request, 'bibliotech/pages/livro-criar.html',{
         'form': form

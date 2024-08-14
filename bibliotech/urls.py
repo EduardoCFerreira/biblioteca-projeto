@@ -8,5 +8,5 @@ urlpatterns = [
     path('livros/search/', views.search, name="search"),
     path('livros/category/<int:category_id>/', views.category, name="category"),
     path('livros/<int:id>/', views.book, name="livro"),
-    path('livro-criar/', views.livro_criar, name='livro_criar')
+    path('livro-criar/', views.livro_adicionar, name='livro_adicionar'),
 ]
